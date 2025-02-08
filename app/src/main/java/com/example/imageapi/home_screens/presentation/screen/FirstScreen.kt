@@ -1,5 +1,7 @@
 package com.example.imageapi.home_screens.presentation.screen
 
+import android.graphics.BitmapFactory
+import android.util.Base64
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -9,10 +11,11 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.layout.ContentScale
 import androidx.navigation.NavHostController
-import com.example.imageapi.base64ToImageBitmap
 import com.example.imageapi.navigation_setup.Screens
+import java.io.ByteArrayInputStream
 
 @Composable
 fun FirstScreen(navHostController: NavHostController) {
@@ -32,5 +35,16 @@ fun FirstScreen(navHostController: NavHostController) {
                 Text("Capture Image!")
             }
         }
+    }
+}
+
+fun base64ToImageBitmap(base64String: String): androidx.compose.ui.graphics.ImageBitmap? {
+    return try {
+        val decodedBytes = Base64.decode(base64String, Base64.DEFAULT)
+        val bitmap = BitmapFactory.decodeStream(ByteArrayInputStream(decodedBytes))
+        bitmap?.asImageBitmap()
+    } catch (e: Exception) {
+        e.printStackTrace()
+        null
     }
 }
