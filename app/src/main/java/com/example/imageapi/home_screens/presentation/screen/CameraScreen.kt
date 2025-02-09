@@ -31,10 +31,11 @@ import androidx.core.content.ContextCompat
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import com.example.imageapi.home_screens.presentation.CameraViewModel
+import dagger.hilt.android.lifecycle.HiltViewModel
 
 
 @Composable
-fun CameraScreen(navHostController: NavHostController) {
+fun CameraScreen(navHostController: NavHostController, viewModel: CameraViewModel) {
 
     val context = LocalContext.current
     val applicationContext = context.applicationContext
@@ -48,7 +49,6 @@ fun CameraScreen(navHostController: NavHostController) {
                 )
             }
         }
-        val viewModel = viewModel<CameraViewModel>()
 
 
         Box(modifier = Modifier
