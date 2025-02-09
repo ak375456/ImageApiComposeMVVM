@@ -1,17 +1,13 @@
 package com.example.imageapi
 
 import android.content.pm.PackageManager
-import android.graphics.BitmapFactory
 import android.os.Bundle
-import android.util.Base64
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.ui.graphics.asImageBitmap
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.example.imageapi.ui.theme.ImageApiTheme
-import java.io.ByteArrayInputStream
 import androidx.navigation.compose.rememberNavController
 import com.example.imageapi.navigation_setup.SetupNavGraph
 import dagger.hilt.android.AndroidEntryPoint

@@ -9,7 +9,6 @@ import com.example.imageapi.home_screens.presentation.screen.CameraScreen
 import com.example.imageapi.home_screens.presentation.screen.FirstScreen
 import com.example.imageapi.navigation_setup.HOME_ROUTE
 import com.example.imageapi.navigation_setup.Screens
-import dagger.hilt.android.lifecycle.HiltViewModel
 
 fun NavGraphBuilder.homeNavigationGraph(
     navController: NavHostController,

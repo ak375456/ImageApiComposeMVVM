@@ -4,6 +4,7 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.Matrix
 import android.util.Log
+import android.widget.Toast
 import androidx.camera.core.CameraSelector
 import androidx.camera.core.ImageCapture
 import androidx.camera.core.ImageCaptureException
@@ -28,10 +29,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import com.example.imageapi.home_screens.presentation.CameraViewModel
-import dagger.hilt.android.lifecycle.HiltViewModel
 
 
 @Composable
@@ -87,6 +86,8 @@ fun CameraScreen(navHostController: NavHostController, viewModel: CameraViewMode
                             controller = controller,
                             onPhotoTaken = viewModel::onTakePhoto
                         )
+                        Toast.makeText(context, "Photo Taken", Toast.LENGTH_SHORT).show()
+
                     }
                 ) {
                     Icon(imageVector = Icons.Default.Add, "")
