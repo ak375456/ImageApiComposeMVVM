@@ -1,7 +1,12 @@
 package com.example.imageapi.home_screens.presentation
 
+import android.annotation.SuppressLint
+import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.graphics.ImageDecoder
+import android.net.Uri
+import android.os.Build
 import android.util.Base64
 import android.util.Log
 import androidx.compose.ui.graphics.asImageBitmap
@@ -53,4 +58,39 @@ class CameraViewModel @Inject constructor():ViewModel() {
             null
         }
     }
+    fun base64ToImageBitmap02(base64: String): Bitmap? {
+        return try {
+            val decodedBytes: ByteArray = Base64.decode(base64, Base64.DEFAULT)
+            BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.size)
+        } catch (e: Exception) {
+            Log.e("Base64", "Decoding failed", e)
+            null
+        }
+    }
+    @SuppressLint("ObsoleteSdkInt")
+    fun uriToBase64(context: Context, uri: Uri): String? {
+        return try {
+            val bitmap = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+                val source = ImageDecoder.createSource(context.contentResolver, uri)
+                ImageDecoder.decodeBitmap(source)
+            } else {
+                @Suppress("DEPRECATION")
+                context.contentResolver.openInputStream(uri)?.use { inputStream ->
+                    BitmapFactory.decodeStream(inputStream)
+                }
+            }
+
+            bitmap?.let {
+                val outputStream = ByteArrayOutputStream()
+                it.compress(Bitmap.CompressFormat.JPEG, 100, outputStream)
+                val byteArray = outputStream.toByteArray()
+                Base64.encodeToString(byteArray, Base64.DEFAULT)
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+            null
+        }
+    }
+
+
 }
